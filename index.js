@@ -3,14 +3,18 @@ const global = typeof window !== 'undefined' ? window : self
 const DEFAULT_DB_NAME = 'random-access-web'
 
 async function init (options) {
+  if (typeof options === 'string') options = { name: options }
+
   const candidates = [
     buildChromeFileStorage,
     buildIDBMutableFileStorage,
-    buildIDBStorage
+    buildIDBStorage,
+    buildMemoryStorage
   ]
+
   let storage = null
   for (const candidate of candidates) {
-    const storage = await candidate(options)
+    storage = await candidate(options)
     if (storage) return storage
   }
 
@@ -26,12 +30,6 @@ async function buildChromeFileStorage () {
   return require('random-access-chrome-file')
 }
 
-async function buildIDBStorage (options) {
-  if (typeof options === 'string') options = { name: options }
-  const name = options.name || DEFAULT_DB_NAME
-  return require('random-access-idb')(name)
-}
-
 async function buildIDBMutableFileStorage (options) {
   const mutableFile = global.IDBMutableFile
   if (!mutableFile) return null
@@ -39,6 +37,19 @@ async function buildIDBMutableFileStorage (options) {
   const randomaccess = require('@sammacbeth/random-access-idb-mutable-file')
 
   return randomaccess.mount()
+}
+
+async function buildIDBStorage (options) {
+  try {
+    const name = options.name || DEFAULT_DB_NAME
+    return require('random-access-idb')(name)
+  } catch (err) {
+    return null
+  }
+}
+
+async function buildMemoryStorage () {
+  return require('random-access-memory')()
 }
 
 module.exports = init
