@@ -38,12 +38,13 @@ function mutableStorage (options) {
   const mutableAccess = require('@sammacbeth/random-access-idb-mutable-file')
 
   let mounted = null
+  let loading = null
 
-  function doMount (cb) {
-    return mutableAccess(options).then((requestFile) => {
+  function doMount () {
+    return mutableAccess.mount(options).then((requestFile) => {
       mounted = requestFile
-      cb(null)
-    }, (e) => cb(e))
+      loading = null
+    })
   }
 
   return (name) => {
@@ -52,10 +53,15 @@ function mutableStorage (options) {
     return randomAccess({
       open: function (req) {
         if (!mounted) {
-          return doMount((err) => {
-            if (err) req.callback(err)
-            else this._open(req)
+          loading = doMount()
+        }
+        if(loading) {
+          loading.then(() => {
+            this._open(req)
+          }, (err) => {
+            req.callback(err)
           })
+          return
         }
 
         file = mounted(name)
@@ -64,10 +70,15 @@ function mutableStorage (options) {
       },
       openReadonly: function (req) {
         if (!mounted) {
-          return doMount((err) => {
-            if (err) req.callback(err)
-            else this._openReadonly(req)
+          loading = doMount()
+        }
+        if(loading) {
+          loading.then(() => {
+            this._openReadonly(req)
+          }, (err) => {
+            req.callback(err)
           })
+          return
         }
 
         file = mounted(name)
