@@ -6,9 +6,9 @@ npm install --save random-access-web
 ```
 
 ```js
-const RandomAccessWeb = require('random-access-web')
+const RAW = require('random-access-web')
 
-const storage = await RandomAccessWeb.init()
+const storage = RAW('dats')
 
 const dat = new DatJs({
   db: storage
