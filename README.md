@@ -14,3 +14,9 @@ const dat = new DatJs({
   db: storage
 })
 ```
+
+## Options:
+
+- `name`: The database name to use (if applicable)
+- `storeName`: The collection to use for the data (For indexedDB)
+- `maxSize`: The maximum size to allocate for Chrome file storage
