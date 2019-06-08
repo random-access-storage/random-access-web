@@ -35,7 +35,7 @@ module.exports = storage
 
 function mutableStorage (options) {
   const randomAccess = require('random-access-storage')
-  const mutableAccess = require('@sammacbeth/random-access-idb-mutable-file')
+  const mutableAccess = require('random-access-idb-mutable-file')
 
   let mounted = null
   let loading = null
