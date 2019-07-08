@@ -55,7 +55,7 @@ function mutableStorage (options) {
         if (!mounted) {
           loading = doMount()
         }
-        if(loading) {
+        if (loading) {
           loading.then(() => {
             this._open(req)
           }, (err) => {
@@ -72,7 +72,7 @@ function mutableStorage (options) {
         if (!mounted) {
           loading = doMount()
         }
-        if(loading) {
+        if (loading) {
           loading.then(() => {
             this._openReadonly(req)
           }, (err) => {
