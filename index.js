@@ -16,7 +16,7 @@ if (requestFileSystem) {
       RACF.DEFAULT_MAX_SIZE = options.maxSize
     }
 
-    return RACF
+    return RACF(options)
   }
 } else if (mutableFile) {
   storage = (options = {}) => {
