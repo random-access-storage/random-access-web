@@ -11,12 +11,9 @@ let storage = () => require('random-access-memory')
 
 if (requestFileSystem) {
   storage = (options) => {
-    const RACF = require('random-access-chrome-file')
-    if ((typeof options === 'object') && options.maxSize) {
-      RACF.DEFAULT_MAX_SIZE = options.maxSize
-    }
-
-    return RACF(options)
+    if (typeof options === 'string') options = { name: options }
+    const name = options.name || DEFAULT_DB_NAME
+    return require('random-access-chrome-file')(name, options)
   }
 } else if (mutableFile) {
   storage = (options = {}) => {
