@@ -23,14 +23,17 @@ test(
 tape('Works with hyperdrive', (t) => {
   const storage = RAW('tests-hyperdrive-' + Math.random())
 
-  const archive = hyperdrive(storage)
-
-  archive.writeFile('/example.txt', 'Hello World!', (err) => {
-    t.notOk(err, 'able to write')
-    archive.readFile('/example.txt', 'utf8', (err2, result) => {
-      t.notOk(err2, 'able to read')
-      t.equals(result, 'Hello World!')
-      t.end()
+  const drive = hyperdrive(storage)
+  drive.ready((err) => {
+    t.error(err, 'drive ready, no error')
+    t.ok(drive.writable, 'drive is writable')
+    drive.writeFile('/example.txt', 'Hello World!', (err1) => {
+      t.error(err1, 'able to write')
+      drive.readFile('/example.txt', 'utf8', (err2, result) => {
+        t.error(err2, 'able to read')
+        t.equals(result, 'Hello World!')
+        t.end()
+      })
     })
   })
 })

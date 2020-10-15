@@ -4,7 +4,7 @@
   "description": "Chooses the fastest random access backend based on the user's browser",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "standard --fix && browserify test.js | browser-run",
     "build-test": "browserify test.js > test-bundle.js"
   },
   "repository": {
@@ -26,16 +26,19 @@
   "homepage": "https://github.com/RangerMauve/random-access-web#readme",
   "dependencies": {
     "@sammacbeth/random-access-idb-mutable-file": "^0.1.1",
-    "random-access-chrome-file": "^1.1.2",
+    "random-access-chrome-file": "^1.1.4",
     "random-access-idb": "^1.2.1",
     "random-access-idb-mutable-file": "^0.3.0",
     "random-access-memory": "^3.1.1",
-    "random-access-storage": "^1.3.0"
+    "random-access-storage": "^1.4.1",
+    "@DougAnderson444/random-access-idb": "github:DougAnderson444/random-access-idb"
   },
   "devDependencies": {
-    "browserify": "^16.3.0",
-    "hyperdrive": "^9.14.5",
+    "browser-run": "^8.0.0",
+    "browserify": "^16.5.2",
+    "hyperdrive": "^10.18.0",
     "random-access-test": "github:random-access-storage/random-access-test",
-    "tape": "^4.11.0"
+    "standard": "^14.3.4",
+    "tape": "^5.0.1"
   }
 }
