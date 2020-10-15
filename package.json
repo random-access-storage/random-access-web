@@ -4,7 +4,7 @@
   "description": "Chooses the fastest random access backend based on the user's browser",
   "main": "index.js",
   "scripts": {
-    "test": "browserify test.js | browser-run",    
+    "test": "standard --fix && browserify test.js | browser-run",
     "build-test": "browserify test.js > test-bundle.js"
   },
   "repository": {
@@ -38,6 +38,7 @@
     "browserify": "^16.5.2",
     "hyperdrive": "^10.18.0",
     "random-access-test": "github:random-access-storage/random-access-test",
+    "standard": "^14.3.4",
     "tape": "^5.0.1"
   }
 }

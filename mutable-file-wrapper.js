@@ -21,7 +21,7 @@ module.exports = function mutableStorage (options) {
         if (!mounted && !loading) {
           loading = doMount()
         }
-        if(loading) {
+        if (loading) {
           loading.then(() => {
             this._open(req)
           }, (err) => {
@@ -35,32 +35,32 @@ module.exports = function mutableStorage (options) {
         req.callback()
       },
       write: function (req) {
-        file.write(req.offset, req.data, function(err, data) {
+        file.write(req.offset, req.data, function (err, data) {
           req.callback(err, data)
         })
       },
       read: function (req) {
-        file.read(req.offset, req.size,  function(err, data) {
+        file.read(req.offset, req.size, function (err, data) {
           req.callback(err, data)
         })
       },
       del: function (req) {
-        file.del(req.offset, req.size,  function(err, data) {
+        file.del(req.offset, req.size, function (err, data) {
           req.callback(err, data)
         })
       },
       stat: function (req) {
-        file.stat( function(err, data) {
+        file.stat(function (err, data) {
           req.callback(err, data)
         })
       },
       close: function (req) {
-        file.close( function(err, data) {
+        file.close(function (err, data) {
           req.callback(err, data)
         })
       },
       destroy: function (req) {
-        file.destroy( function(err, data) {
+        file.destroy(function (err, data) {
           req.callback(err, data)
         })
       }
